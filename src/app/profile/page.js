@@ -11,13 +11,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  ard,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Copy, MapPinHouse, UserRound, Wallet } from "lucide-react";
+import { MapPinHouse, UserRound } from "lucide-react";
 import { useGetUserProfileQuery } from "../../services/queries";
+import { useCreateOrEditUserProfileMutation } from "../../services/mutations";
 
 const Page = () => {
-  const [user, setUser] = useState({ username: "", address: "", wallet: "" });
+  const [user, setUser] = useState({ name: "", address: "" });
 
   const handleChange = (e) => {
     setUser({
@@ -30,7 +32,18 @@ const Page = () => {
     return address.slice(0, 4) + "..." + address.slice(-5);
   }
 
-  const { data, isSuccess } = useGetUserProfileQuery();
+  const [visible, setVisible] = useState("hidden");
+
+  const { isSuccess, data } = useGetUserProfileQuery();
+  const mutation = useCreateOrEditUserProfileMutation();
+
+  async function editProfile() {
+    mutation.mutateAsync(user, {
+      onSuccess: () => {
+        console.log("done");
+      },
+    });
+  }
 
   if (isSuccess)
     return (
@@ -49,25 +62,41 @@ const Page = () => {
                 </div>
                 <div className="flex flex-col items-center h-full">
                   <h2 className="font-semibold text-2xl px-2">
-                    {data.data[0]}
+                    {data.data[0] || "User"}
                   </h2>
-                  <h2 className="font-semibold text-sm px-2 font-mono tracking-wider cursor-pointer">
+                  <h2 className="font-semibold text-sm px-2 font-mono tracking-wider">
                     {shortenAddress(data.address)}
                   </h2>
                 </div>
               </div>
               <div className="h-[0.5px] w-[100%] flex items-center border"></div>
             </div>
-            <div className="flex flex-col gap-1">
+            <span className="text-sm">{data.data[1]}</span>
+            <div
+              className={`flex justify-center w-full pt-4 ${
+                visible === "hidden" ? "block" : "hidden"
+              }`}
+            >
+              <Button
+                className="rounded-sm"
+                onClick={() => {
+                  setVisible("block");
+                }}
+              >
+                Edit Profile
+              </Button>
+            </div>
+            <div className={`flex flex-col gap-1 ${visible} `}>
               <div className="flex flex-row">
                 <UserRound className="text-lg w-[20px]" />
-                <input
+                <textarea
                   type="text"
                   onChange={handleChange}
-                  value={user.username ? user.username : ""}
-                  name="username"
-                  placeholder="username"
-                  className="border border-zinc-500 p-1 mx-2 rounded-md"
+                  value={user.name ? user.name : ""}
+                  name="name"
+                  placeholder="name"
+                  rows={1}
+                  className="resize-none w-2/3 border border-zinc-500 p-1 mx-2 rounded-md"
                 />
               </div>
 
@@ -76,14 +105,18 @@ const Page = () => {
                 <textarea
                   type="text"
                   onChange={handleChange}
-                  value={user.address ? user.address : ""}
                   name="address"
+                  value={user.address ? user.address : ""}
                   placeholder="address"
-                  rows={2}
-                  className="border border-zinc-500 p-1 mx-2 rounded-md"
+                  rows={3}
+                  className="border w-2/3 border-zinc-500 p-1 mx-2 rounded-md"
                 />
               </div>
-              <Button className="p-3 w-[40%] mx-7 my-3 rounded-sm">
+
+              <Button
+                className="p-3 w-[40%] mx-7 my-3 rounded-sm"
+                onClick={editProfile}
+              >
                 Update
               </Button>
             </div>
@@ -106,10 +139,10 @@ const Page = () => {
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <Card>
                         <CardHeader>
-                          <CardTitle>v0.dev</CardTitle>
+                          <CardTitle>Santoor Soap</CardTitle>
                           <CardDescription>
-                            A powerful platform for building and deploying web
-                            applications.
+                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
+                            Soap with Nourishing & Anti-Aging Properties
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -124,10 +157,10 @@ const Page = () => {
                       </Card>
                       <Card>
                         <CardHeader>
-                          <CardTitle>v0.dev</CardTitle>
+                          <CardTitle>Santoor Soap</CardTitle>
                           <CardDescription>
-                            A powerful platform for building and deploying web
-                            applications.
+                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
+                            Soap with Nourishing & Anti-Aging Properties
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -142,45 +175,10 @@ const Page = () => {
                       </Card>
                       <Card>
                         <CardHeader>
-                          <CardTitle>v0.dev</CardTitle>
+                          <CardTitle>Santoor Soap</CardTitle>
                           <CardDescription>
-                            A powerful platform for building and deploying web
-                            applications.
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Acme API</CardTitle>
-                          <CardDescription>
-                            A RESTful API for managing customer data.
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Acme Dashboard</CardTitle>
-                          <CardDescription>
-                            A web-based dashboard for monitoring and managing
-                            Acme services.
+                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
+                            Soap with Nourishing & Anti-Aging Properties
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -206,10 +204,10 @@ const Page = () => {
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <Card>
                         <CardHeader>
-                          <CardTitle>v0.dev</CardTitle>
+                          <CardTitle>Santoor Soap</CardTitle>
                           <CardDescription>
-                            A powerful platform for building and deploying web
-                            applications.
+                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
+                            Soap with Nourishing & Anti-Aging Properties
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -224,27 +222,10 @@ const Page = () => {
                       </Card>
                       <Card>
                         <CardHeader>
-                          <CardTitle>Acme API</CardTitle>
+                          <CardTitle>Santoor Soap</CardTitle>
                           <CardDescription>
-                            A RESTful API for managing customer data.
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Acme Dashboard</CardTitle>
-                          <CardDescription>
-                            A web-based dashboard for monitoring and managing
-                            Acme services.
+                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
+                            Soap with Nourishing & Anti-Aging Properties
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -264,7 +245,7 @@ const Page = () => {
             </Tabs>
           </div>
         </div>
-        {/* <footer className='h-10 w-full bg-black'></footer> */}
+        {/* <Footer */}
       </>
     );
 };
