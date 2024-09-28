@@ -41,13 +41,24 @@ export default function Home() {
     console.log(data.map((e) => e));
   }
 
+  const handleScrollToCategory = (categoryName) => {
+    const element = document.getElementById(categoryName);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <Header />
-      <Category categories={CATEGORIES} />
+      <Category categories={CATEGORIES} onCategoryClick={handleScrollToCategory} />
+
       {CATEGORIES.map(({ name }) => (
-        <Carousel category={name} />
+        <div id={name} key={name}>
+          <Carousel category={name} />
+        </div>
       ))}
+
       <Footer />
     </>
   );
