@@ -37,7 +37,6 @@ export function useGetUserProfileQuery() {
           provider
         );
         const signer = await provider.getSigner();
-        console.log(signer);
         const data = await contract.connect(signer).getUserProfile();
         return { data, address: signer.address };
       } else {

@@ -45,11 +45,11 @@ const Page = () => {
     });
   }
 
-  if (isSuccess)
+  if (isSuccess) {
     return (
       <>
         <Header />
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row">
           <div className="w-[20vw] h-auto m-3 mt-[15vh] rounded-md p-3 bg-white border border-zinc-300">
             <div className="mb-3 flex flex-col gap-2">
               <div className="flex flex-row items-center justify-center">
@@ -71,7 +71,7 @@ const Page = () => {
               </div>
               <div className="h-[0.5px] w-[100%] flex items-center border"></div>
             </div>
-            <span className="text-sm">{data.data[1]}</span>
+            <span className="text-sm py-2">{data.data[1]}</span>
             <div
               className={`flex justify-center w-full pt-4 ${
                 visible === "hidden" ? "block" : "hidden"
@@ -86,8 +86,8 @@ const Page = () => {
                 Edit Profile
               </Button>
             </div>
-            <div className={`flex flex-col gap-1 ${visible} `}>
-              <div className="flex flex-row">
+            <div className={`flex flex-col gap-1 mt-2 ${visible}`}>
+              <div className="flex flex-row justify-center">
                 <UserRound className="text-lg w-[20px]" />
                 <textarea
                   type="text"
@@ -100,7 +100,7 @@ const Page = () => {
                 />
               </div>
 
-              <div className="flex flex-row">
+              <div className="flex flex-row justify-center">
                 <MapPinHouse className="text-lg w-[20px]" />
                 <textarea
                   type="text"
@@ -113,84 +113,71 @@ const Page = () => {
                 />
               </div>
 
-              <Button
-                className="p-3 w-[40%] mx-7 my-3 rounded-sm"
-                onClick={editProfile}
-              >
-                Update
-              </Button>
+              <div className="flex gap-x-3 justify-center">
+                <Button
+                  className="p-3 w-[40%] my-3 rounded-sm"
+                  onClick={editProfile}
+                >
+                  Update
+                </Button>
+                <Button
+                  variant="destructive"
+                  className="p-3 w-[40%] my-3 rounded-sm"
+                  onClick={() => setVisible("hidden")}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="flex justify-end m-3">
-            <Tabs defaultValue="listed" className="flex flex-col items-end">
-              <TabsList className="grid w-[15vw] grid-cols-2 bg-slate-300">
-                <TabsTrigger value="listed" className=" bg-zinc-300">
-                  Listed
-                </TabsTrigger>
-                <TabsTrigger value="purchased" className=" bg-zinc-300">
-                  Purchased
-                </TabsTrigger>
-              </TabsList>
+          {/* Tabs Start */}
+          <div className="flex m-3 w-full">
+            <Tabs defaultValue="listed" className="flex flex-col w-full">
+              <div className="flex w-full justify-end">
+                <TabsList className="grid w-[15vw] grid-cols-2 bg-slate-300 items-end">
+                  <TabsTrigger value="listed" className=" bg-zinc-300">
+                    Listed
+                  </TabsTrigger>
+                  <TabsTrigger value="purchased" className=" bg-zinc-300">
+                    Purchased
+                  </TabsTrigger>
+                </TabsList>
+              </div>
               <TabsContent value="listed">
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Listed Products</h2>
+                  <h2 className="text-xl font-bold mb-4 text-start">
+                    Listed Products
+                  </h2>
                   <div className="h-[0.5px] w-full bg-zinc-300"></div>
                   <div className="p-5 min-h-auto">
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Santoor Soap</CardTitle>
-                          <CardDescription>
-                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
-                            Soap with Nourishing & Anti-Aging Properties
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Santoor Soap</CardTitle>
-                          <CardDescription>
-                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
-                            Soap with Nourishing & Anti-Aging Properties
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Santoor Soap</CardTitle>
-                          <CardDescription>
-                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
-                            Soap with Nourishing & Anti-Aging Properties
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
+                      {data.data[2].length == 0 ? (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>No Products Found</CardTitle>
+                          </CardHeader>
+                        </Card>
+                      ) : (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Santoor Soap</CardTitle>
+                            <CardDescription>
+                              Santoor Skin Moisturizing Sandal & Turmeric
+                              Bathing Soap with Nourishing & Anti-Aging
+                              Properties
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <Link
+                              href="#"
+                              className="text-primary"
+                              prefetch={false}
+                            >
+                              View Project
+                            </Link>
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -202,42 +189,33 @@ const Page = () => {
                   <div className="h-[0.5px] w-full bg-zinc-300"></div>
                   <div className="p-5 min-h-auto">
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Santoor Soap</CardTitle>
-                          <CardDescription>
-                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
-                            Soap with Nourishing & Anti-Aging Properties
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Santoor Soap</CardTitle>
-                          <CardDescription>
-                            Santoor Skin Moisturizing Sandal & Turmeric Bathing
-                            Soap with Nourishing & Anti-Aging Properties
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Link
-                            href="#"
-                            className="text-primary"
-                            prefetch={false}
-                          >
-                            View Project
-                          </Link>
-                        </CardContent>
-                      </Card>
+                      {data.data[3].length == 0 ? (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>No Products Found</CardTitle>
+                          </CardHeader>
+                        </Card>
+                      ) : (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Santoor Soap</CardTitle>
+                            <CardDescription>
+                              Santoor Skin Moisturizing Sandal & Turmeric
+                              Bathing Soap with Nourishing & Anti-Aging
+                              Properties
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <Link
+                              href="#"
+                              className="text-primary"
+                              prefetch={false}
+                            >
+                              View Project
+                            </Link>
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -248,6 +226,7 @@ const Page = () => {
         {/* <Footer */}
       </>
     );
+  }
 };
 
 export default Page;
