@@ -13,6 +13,7 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Package2Icon, SearchIcon } from "lucide-react";
+import AddProduct from "./AddProduct";
 
 export default function Header() {
   return (
@@ -31,6 +32,19 @@ export default function Header() {
           />
         </div>
         <div className="flex items-center gap-2">
+          <Dialog>
+            <DialogTrigger>
+              <Button>Add products</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add a product</DialogTitle>
+                <DialogDescription>
+                  <AddProduct/>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
           <Link href="/profile">
             <Button>Profile</Button>
           </Link>
