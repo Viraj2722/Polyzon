@@ -17,6 +17,7 @@ import Link from "next/link";
 import { MapPinHouse, UserRound } from "lucide-react";
 import { useGetUserProfileQuery } from "../../services/queries";
 import { useCreateOrEditUserProfileMutation } from "../../services/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
   const [user, setUser] = useState({ name: "", address: "" });
@@ -36,16 +37,19 @@ const Page = () => {
 
   const { isSuccess, data } = useGetUserProfileQuery();
   const mutation = useCreateOrEditUserProfileMutation();
+  const queryClient = useQueryClient();
 
   async function editProfile() {
     mutation.mutateAsync(user, {
       onSuccess: () => {
-        console.log("done");
+        setVisible("hidden");
+        queryClient.invalidateQueries({ queryKey: ["getUserProfile"] });
       },
     });
   }
 
   if (isSuccess) {
+    console.log(data);
     return (
       <>
         <Header />
@@ -55,7 +59,7 @@ const Page = () => {
               <div className="flex flex-row items-center justify-center">
                 <div className="bg-zinc-100 border border-zinc-300 rounded-full w-[5vw] h-[5vw] flex justify-center items-center opacity-90">
                   <img
-                    src="https://api.dicebear.com/9.x/pixel-art/svg?seed=Felix"
+                    src={`https://api.dicebear.com/9.x/pixel-art/svg?seed=${data.address}`}
                     className="w-[50px] h-[50px]"
                     alt=""
                   />

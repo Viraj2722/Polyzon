@@ -17,10 +17,10 @@ import {
 import React from "react";
 import { Button } from "./ui/button";
 
-function CarouselSlide() {
+function CarouselSlide({ category }) {
   return (
     <>
-      <h1 className="text-3xl text-center font-black py-6">Electronics</h1>
+      <h1 className="text-3xl text-center font-black py-6">{category}</h1>
       <div className="flex justify-center">
         <Carousel
           opts={{

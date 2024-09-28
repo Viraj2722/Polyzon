@@ -9,13 +9,11 @@ export function useGetAllProductsQuery() {
       if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(
-          "0xf3dae8BBC2BCE358474AcA6737c85c7CABD06Fe5",
+          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
           Esurf.abi,
           provider
         );
-        const signer = await provider.getSigner();
-        const data = await contract.connect(signer).getAllProducts();
-        return data.map((w) => w);
+        return await contract.getAllProducts();
       } else {
         alert("install metamask");
       }
@@ -32,7 +30,7 @@ export function useGetUserProfileQuery() {
       if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(
-          "0xf3dae8BBC2BCE358474AcA6737c85c7CABD06Fe5",
+          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
           Esurf.abi,
           provider
         );

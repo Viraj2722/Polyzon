@@ -33,14 +33,14 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-2">
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button>Add products</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Add a product</DialogTitle>
                 <DialogDescription>
-                  <AddProduct/>
+                  <AddProduct />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

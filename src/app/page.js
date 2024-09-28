@@ -3,10 +3,7 @@
 import Header from "@/components/Header";
 import Carousel from "@/components/CarouselSlide";
 import Category from "@/components/Category";
-import {
-  useGetAllProductsQuery,
-  useGetUserProfileQuery,
-} from "../services/queries";
+import { useGetAllProductsQuery } from "../services/queries";
 import Footer from "@/components/Footer";
 
 const CATEGORIES = [
@@ -38,21 +35,19 @@ const CATEGORIES = [
 ];
 
 export default function Home() {
-  // const { data, isSuccess } = useGetUserProfileQuery();
+  const { data, isSuccess } = useGetAllProductsQuery();
 
-  // if (isSuccess) {
-  //   console.log(data[0]);
-  //   console.log(data[1]);
-  //   console.log(data[2].map((e) => e));
-  //   console.log(data[3].map((e) => e));
-  // }
+  if (isSuccess) {
+    console.log(data.map((e) => e));
+  }
 
   return (
     <>
       <Header />
       <Category categories={CATEGORIES} />
-      <Carousel />
-      <Carousel />
+      {CATEGORIES.map(({ name }) => (
+        <Carousel category={name} />
+      ))}
       <Footer />
     </>
   );

@@ -11,11 +11,53 @@ export function useCreateOrEditUserProfileMutation() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(
-          "0xf3dae8BBC2BCE358474AcA6737c85c7CABD06Fe5",
+          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
           Esurf.abi,
           signer
         );
         return await contract.createOrEditUserProfile(name, address);
+      } else {
+        alert("install metamask");
+      }
+    },
+  });
+}
+
+export function useAddProductMutation() {
+  return useMutation({
+    mutationKey: ["addProduct"],
+    mutationFn: async ({
+      name,
+      price,
+      description,
+      category,
+      stock,
+      image,
+    }) => {
+      console.log({
+        name,
+        price,
+        description,
+        category,
+        stock,
+        image,
+      });
+      if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(
+          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          Esurf.abi,
+          signer
+        );
+        return await contract.addProduct(
+          name,
+          ethers.parseUnits(price.toString(), 18),
+          description,
+          category,
+          BigInt(stock),
+          image
+        );
       } else {
         alert("install metamask");
       }
