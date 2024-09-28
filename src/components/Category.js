@@ -9,7 +9,7 @@ export default function Category({ categories, onCategoryClick }) {
           <div
             className="flex flex-col text-sm items-center font-medium cursor-pointer px-10"
             key={index}
-            onClick={() => onCategoryClick(e.name)} // Scrolls to the section
+            onClick={() => onCategoryClick(e.name)}
           >
             <Avatar className="bg-slate-500 my-2 group-hover:bg-muted/50 transition-colors">
               <AvatarImage src={e.image || "https://picsum.photos/200"}></AvatarImage>

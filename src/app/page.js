@@ -44,7 +44,14 @@ export default function Home() {
   const handleScrollToCategory = (categoryName) => {
     const element = document.getElementById(categoryName);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offset = -50; 
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset + offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -54,7 +61,7 @@ export default function Home() {
       <Category categories={CATEGORIES} onCategoryClick={handleScrollToCategory} />
 
       {CATEGORIES.map(({ name }) => (
-        <div id={name} key={name}>
+        <div id={name} key={name} className="py-10"> 
           <Carousel category={name} />
         </div>
       ))}
