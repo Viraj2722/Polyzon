@@ -65,32 +65,23 @@ export function useAddProductMutation() {
   });
 }
 
-// export function useLoginMutation() {
-//   return useMutation({
-//     mutationKey: ["loginMutation"],
-//     mutationFn: async (data) => {
-//       return (
-//         await axios.post(`${API_URL}/auth/login`, data, {
-//           headers: { "Content-Type": "application/json" },
-//         })
-//       ).data;
-//     },
-//   });
-// }
-
-// export function useRestoreHealthMutation() {
-//   return useMutation({
-//     mutationKey: ["restoreHealthMutation"],
-//     mutationFn: async (data) => {
-//       const { value } = await Preferences.get({ key: "token" });
-//       return (
-//         await axios.post(`${API_URL}/restore`, data, {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${value}`,
-//           },
-//         })
-//       ).data;
-//     },
-//   });
-// }
+export function useAddReviewMutation() {
+  return useMutation({
+    mutationKey: ["addReview"],
+    mutationFn: async ({ id, review }) => {
+      console.log({ id, review });
+      if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(
+          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          Esurf.abi,
+          signer
+        );
+        return await contract.addReview(BigInt(id), review);
+      } else {
+        alert("install metamask");
+      }
+    },
+  });
+}

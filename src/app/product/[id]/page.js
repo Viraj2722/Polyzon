@@ -1,15 +1,14 @@
-'use client'
+"use client";
 
-import * as React from "react"
-
-import { Button } from "@/components/ui/button"
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -18,20 +17,36 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
-import CarouselSlide from "@/components/CarouselSlide"
-import { Input } from "@/components/ui/input"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+} from "@/components/ui/dialog";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import CarouselSlide from "@/components/CarouselSlide";
+import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { useAddReviewMutation } from "@/services/mutations";
 
-export default function HomeScreen() {
+export default function HomeScreen({ params: { id } }) {
+  const [review, setReview] = useState("");
+
+  const mutation = useAddReviewMutation();
+
+  async function addReview() {
+    mutation.mutateAsync(
+      { id, review },
+      {
+        onSuccess: () => {},
+      }
+    );
+  }
   return (
     <>
-      <Header/>
-      <div className="flex pt-16 items-center justify-evenly" >
+      <Header />
+      <div className="flex pt-16 items-center justify-evenly">
         <div>
-          <img src="https://picsum.photos/500" className="rounded-3xl border border-black drop-shadow-2xl" />
+          <img
+            src="https://picsum.photos/500"
+            className="rounded-3xl border border-black drop-shadow-2xl"
+          />
         </div>
         <div className="justify-start w-auto">
           <h1 className="text-4xl font-extrabold py-3">Product 1</h1>
@@ -42,10 +57,14 @@ export default function HomeScreen() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium, assumenda corporis. Atque quis ducimus necessitatibus quibusdam similique quod totam iure fugit fugiat quos. Facere vel, illum cumque odio excepturi molestias?e</h3>
-
+              <h3>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Accusantium, assumenda corporis. Atque quis ducimus
+                necessitatibus quibusdam similique quod totam iure fugit fugiat
+                quos. Facere vel, illum cumque odio excepturi molestias?e
+              </h3>
             </CardContent>
-            <CardFooter className="flex">
+            <CardFooter className="flex ">
               <Button>Buy With Polygon</Button>
             </CardFooter>
           </Card>
@@ -58,56 +77,56 @@ export default function HomeScreen() {
 
       <div className="w-full pt-32">
         <div className="flex content-between justify-around">
-          <h1 className="font-black text-3xl mb-4">
-            Product Reviews
-          </h1>
+          <h1 className="font-black text-3xl mb-4">Product Reviews</h1>
           <Dialog asChild>
             <DialogTrigger>
-              <Button>
-                Leave a Review
-            </Button>
+              <Button>Leave a Review</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Leave a review </DialogTitle>
                 <DialogDescription>
-                  <Input />
+                  <Input
+                    name="review"
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                  />
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
-                <Button>
-                  Submit
-                </Button>
+                <Button onClick={addReview}>Submit</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
-        {
-          Array.from({ length: 10 }).map((_, index) => (
-            <div className="flex flex-col mt-4 text-sm items-center font-medium">
-              <Card className="w-[900px]">
-                <CardHeader>
-                  <CardTitle className=" flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Avatar>
-                        <AvatarImage src="https://picsum.photos/500"></AvatarImage>
-                      </Avatar>
-                      <h1 className="pl-3" >Username</h1>
-                    </div>
-                    <h1>11/09/2001</h1>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium, assumenda corporis. Atque quis ducimus necessitatibus quibusdam similique quod totam iure fugit fugiat quos. Facere vel, illum cumque odio excepturi molestias?e</h3>
-
-                </CardContent>
-              </Card>
-            </div>
-          ))
-        }
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div className="flex flex-col mt-4 text-sm items-center font-medium">
+            <Card className="w-[900px]">
+              <CardHeader>
+                <CardTitle className=" flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Avatar>
+                      <AvatarImage src="https://picsum.photos/500"></AvatarImage>
+                    </Avatar>
+                    <h1 className="pl-3">Username</h1>
+                  </div>
+                  <h1>11/09/2001</h1>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <h3>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Accusantium, assumenda corporis. Atque quis ducimus
+                  necessitatibus quibusdam similique quod totam iure fugit
+                  fugiat quos. Facere vel, illum cumque odio excepturi
+                  molestias?e
+                </h3>
+              </CardContent>
+            </Card>
+          </div>
+        ))}
       </div>
-      <Footer/>
+      <Footer />
     </>
-
-  )
+  );
 }
