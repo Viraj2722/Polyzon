@@ -13,9 +13,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { useAddProductMutation } from "../services/mutations";
 
-export default function AddProduct() {
+export default function AddProduct({ modal }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -88,6 +89,7 @@ export default function AddProduct() {
     mutation.mutateAsync(product, {
       onSuccess: () => {
         //show sonner
+        modal.setOpenModal(false);
       },
     });
   }
@@ -145,17 +147,19 @@ export default function AddProduct() {
         accept="image/*"
         name="image"
       />
-      <Button
-        className="mt-3"
-        variant="outline"
-        onClick={uploadImage}
-        disabled={isLoading}
-      >
-        {isLoading ? "Uploading..." : "Upload Product Image"}
-      </Button>
-      <Button className="mt-3" onClick={submitProduct}>
-        Submit
-      </Button>
+      <span className="flex justify-between">
+        <Button
+          className="mt-3"
+          variant="outline"
+          onClick={uploadImage}
+          disabled={isLoading}
+        >
+          {isLoading ? "Uploading..." : "Upload Product Image"}
+        </Button>
+        <Button className="mt-3" onClick={submitProduct}>
+          Submit
+        </Button>
+      </span>
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>

@@ -41,6 +41,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.56.2
         version: 5.56.2(react@18.3.1)
+      '@yaireo/relative-time':
+        specifier: ^1.0.5
+        version: 1.0.5
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -62,12 +65,18 @@ importers:
       next-nprogress-bar:
         specifier: ^2.3.13
         version: 2.3.13
+      next-themes:
+        specifier: ^0.3.0
+        version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18
         version: 18.3.1
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+      sonner:
+        specifier: ^1.5.0
+        version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -834,6 +843,10 @@ packages:
 
   '@walletconnect/window-metadata@1.0.0':
     resolution: {integrity: sha512-9eFvmJxIKCC3YWOL97SgRkKhlyGXkrHwamfechmqszbypFspaSk+t2jQXAEU7YClHF6Qjw5eYOmy1//zFi9/GA==}
+
+  '@yaireo/relative-time@1.0.5':
+    resolution: {integrity: sha512-70+d5xRsX06cDVDn6WiV2qwWDSLrkLg8QsAQyeD+EiQeZga5EfwvvXrFcdDh2GI83QsnTJyHYxp58M1DMKurVQ==}
+    engines: {node: '>=12.0.0'}
 
   abstract-leveldown@2.6.3:
     resolution: {integrity: sha512-2++wDf/DYqkPR3o5tbfdhF96EfMApo1GpPfzOsR/ZYXdkSmELlvOOEAl9iKkRsktMPHdGjO4rtkBpf2I7TiTeA==}
@@ -1717,6 +1730,12 @@ packages:
   next-nprogress-bar@2.3.13:
     resolution: {integrity: sha512-eJQDvPSUwZ2yRyNKqAH6xTFI4RtIFvs+qtY8essTtfooyaxLGmkanEO7vL83U166bullMtVpixD6FQk5SQkhMw==}
 
+  next-themes@0.3.0:
+    resolution: {integrity: sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+      react-dom: ^16.8 || ^17 || ^18
+
   next@14.2.13:
     resolution: {integrity: sha512-BseY9YNw8QJSwLYD7hlZzl6QVDoSFHL/URN5K64kVEVpCsSOWeyjbIGK+dZUaRViHTaMQX8aqmnn0PHBbGZezg==}
     engines: {node: '>=18.17.0'}
@@ -2097,6 +2116,12 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  sonner@1.5.0:
+    resolution: {integrity: sha512-FBjhG/gnnbN6FY0jaNnqZOMmB73R+5IiyYAw8yBj7L54ER7HB3fOSE5OFiQiE2iXWxeXKvg6fIP4LtVppHEdJA==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -3319,6 +3344,8 @@ snapshots:
     dependencies:
       '@walletconnect/window-getters': 1.0.0
 
+  '@yaireo/relative-time@1.0.5': {}
+
   abstract-leveldown@2.6.3:
     dependencies:
       xtend: 4.0.2
@@ -4337,6 +4364,11 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
+  next-themes@0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   next@14.2.13(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.13
@@ -4698,6 +4730,11 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   signal-exit@4.1.0: {}
+
+  sonner@1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   source-map-js@1.2.1: {}
 
