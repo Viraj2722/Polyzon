@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import { Input } from "./ui/input";
 import {
@@ -28,6 +28,8 @@ import { Package2Icon, SearchIcon } from "lucide-react";
 import AddProduct from "./AddProduct";
 
 export default function Header() {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <header className="flex bg-background border-b sticky top-0 z-40 justify-center">
       <div className="w-full bpx-4 md:px-6 flex items-center justify-between h-14 sm:h-16">
@@ -63,15 +65,15 @@ export default function Header() {
           </Dialog>
         </div>
         <div className="flex items-center gap-2">
-          <Dialog>
+          <Dialog open={openModal} onOpenChange={setOpenModal}>
             <DialogTrigger asChild>
               <Button>Add products</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add a product</DialogTitle>
+                <DialogTitle className="text-2xl text-center">Add a product</DialogTitle>
                 <DialogDescription>
-                  <AddProduct />
+                  <AddProduct modal={{ openModal, setOpenModal }} />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

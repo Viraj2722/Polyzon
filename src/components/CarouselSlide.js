@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 function CarouselSlide({ category, data }) {
-  console.log(data)
+  console.log(data);
   return (
     <>
       <h1 className="text-3xl text-center font-black py-6">{category}</h1>
@@ -39,20 +39,24 @@ function CarouselSlide({ category, data }) {
                 <div className="p-1">
                   <Card className="w-[350px] hover:bg-zinc-100">
                     <CardHeader>
-                      <CardTitle className="text-2xl font-black font-serif">
+                      <CardTitle className="text-2xl font-black font-serif text-ellipsis">
                         {data[index].name}
                       </CardTitle>
                       <CardDescription>Click to know more</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <img
-                        src={data[index].image}
+                        src={
+                          !data[index].image
+                            ? "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                            : data[index].image
+                        }
                         className="rounded-lg drop-shadow-md w-[300px] h-[300px]"
                       />
                     </CardContent>
                     <CardFooter className="flex justify-between">
-                      <h1 className="text-lg font-bold">0.1 Ξ</h1>
-                      <Link href={`/product/${index}`}>
+                      <h1 className="text-lg font-bold">{data[index].price} Ξ</h1>
+                      <Link href={`/product/${data[index].id}`}>
                         <Button>Buy Now</Button>
                       </Link>
                     </CardFooter>

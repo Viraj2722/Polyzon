@@ -54,7 +54,13 @@ const Page = () => {
     mutation.mutateAsync(user, {
       onSuccess: () => {
         setVisible("hidden");
-        queryClient.invalidateQueries({ queryKey: ["getUserProfile"] });
+        toast("Profile Edited", {
+          description: "",
+          action: {
+            label: "X",
+            onClick: () => {},
+          },
+        });
       },
     });
   }
