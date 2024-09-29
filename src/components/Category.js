@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 export default function Category({ categories, onCategoryClick }) {
   return (
-    <div className="flex px-4 md:px-6 py-3 shadow-md justify-center">
+    <div className="flex px-4 sticky top-16 bg-white z-40 md:px-6 py-3 shadow-md justify-center">
       <div className="flex justify-evenly w-[50%]">
         {categories.map((e, index) => (
           <div

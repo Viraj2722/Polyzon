@@ -44,7 +44,7 @@ function CarouselSlide({ category}) {
                     </CardHeader>
                     <CardContent>
                       <img
-                        src="https://picsum.photos/700/600"
+                        src={`https://picsum.photos/700/${600 + index}`}
                         className="rounded-lg drop-shadow-md"
                       />
                     </CardContent>

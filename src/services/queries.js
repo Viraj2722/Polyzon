@@ -65,6 +65,27 @@ export function useGetProductQuery({ id }) {
     retry: false,
   });
 }
+
+export function useGetProductReviewQuery({ id }) {
+  return useQuery({
+    queryKey: ["getProductReviews"],
+    queryFn: async () => {
+      if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const contract = new ethers.Contract(
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
+          Esurf.abi,
+          provider
+        );
+        return await contract.getProductReviews(id);
+      } else {
+        alert("install metamask");
+      }
+    },
+    refetchOnWindowFocus: "always",
+    retry: false,
+  });
+}
 // export function useLoginQuery() {
 //   return useQuery({
 //     queryKey: ["loginQuery"],
