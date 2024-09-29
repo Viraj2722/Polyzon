@@ -60,14 +60,14 @@ export default function Home() {
       acc[product.category].push(product);
       return acc;
     }, {});
-  
+
     const categoryArrays = Object.values(groupedProducts);
-  
+
     console.log(categoryArrays[1]);
 
     return (
       <>
-        <Header />
+        <Header data={data} />
         <Category
           categories={CATEGORIES}
           onCategoryClick={handleScrollToCategory}
@@ -76,11 +76,10 @@ export default function Home() {
         {CATEGORIES.map(({ name }, index) => (
           <div id={name} key={name} className="py-10">
             <Carousel category={name} data={categoryArrays[index]} />
-          </div>  
+          </div>
         ))}
         <Footer />
       </>
     );
   }
-
 }

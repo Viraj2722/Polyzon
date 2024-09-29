@@ -16,7 +16,10 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { MapPinHouse, UserRound } from "lucide-react";
-import { useGetUserProfileQuery } from "../../services/queries";
+import {
+  useGetAllProductsQuery,
+  useGetUserProfileQuery,
+} from "../../services/queries";
 import { useCreateOrEditUserProfileMutation } from "../../services/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import { Badge } from "../../components/ui/badge";
@@ -47,6 +50,7 @@ const Page = () => {
   const [visible, setVisible] = useState("hidden");
 
   const { isSuccess, data } = useGetUserProfileQuery();
+  const { data: alldata, isSuccess: isSuccessFull } = useGetAllProductsQuery();
   const mutation = useCreateOrEditUserProfileMutation();
   const queryClient = useQueryClient();
 
@@ -65,11 +69,11 @@ const Page = () => {
     });
   }
 
-  if (isSuccess) {
+  if (isSuccess && isSuccessFull) {
     console.log(data);
     return (
       <>
-        <Header />
+        <Header data={alldata} />
         <div className="flex flex-row">
           <div className="w-[20vw] h-auto m-3 mt-[15vh] rounded-md p-3 bg-white border border-zinc-300">
             <div className="mb-3 flex flex-col gap-2">

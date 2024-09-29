@@ -22,13 +22,16 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import { Button } from "./ui/button";
 import { Package2Icon, SearchIcon } from "lucide-react";
 import AddProduct from "./AddProduct";
+import { useRouter } from "next/navigation";
 
-export default function Header() {
+export default function Header({ data }) {
   const [openModal, setOpenModal] = useState(false);
+
+  const router = useRouter();
 
   return (
     <header className="flex bg-background border-b sticky top-0 z-40 justify-center">
@@ -39,7 +42,7 @@ export default function Header() {
         </Link>
         <div className="relative flex-1 max-w-md">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
-          
+
           <Dialog asChild>
             <DialogTrigger>
               <Input
@@ -56,7 +59,13 @@ export default function Header() {
                     <CommandInput placeholder="Type anything to search..." />
                     <CommandList>
                       <CommandEmpty>No results found.</CommandEmpty>
-                      <CommandSeparator />
+                      {data.map((e) => (
+                        <CommandItem className="mt-2 text-base cursor-pointer">
+                          <span onClick={() => router.push(`product/${e.id}`)}>
+                            {e.name}
+                          </span>
+                        </CommandItem>
+                      ))}
                     </CommandList>
                   </Command>
                 </DialogDescription>
@@ -71,7 +80,9 @@ export default function Header() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="text-2xl text-center">Add a product</DialogTitle>
+                <DialogTitle className="text-2xl text-center">
+                  Add a product
+                </DialogTitle>
                 <DialogDescription>
                   <AddProduct modal={{ openModal, setOpenModal }} />
                 </DialogDescription>

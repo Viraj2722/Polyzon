@@ -121,7 +121,7 @@ export default function HomeScreen({ params: { id } }) {
 
     return (
       <>
-        <Header />
+        <Header data={alldata} />
         <div className="flex pt-16 items-center justify-evenly">
           <div>
             <img
