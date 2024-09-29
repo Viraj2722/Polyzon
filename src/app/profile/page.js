@@ -15,7 +15,10 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { MapPinHouse, UserRound } from "lucide-react";
-import { useGetUserProfileQuery } from "../../services/queries";
+import {
+  useGetAllProductsQuery,
+  useGetUserProfileQuery,
+} from "../../services/queries";
 import { useCreateOrEditUserProfileMutation } from "../../services/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -66,7 +69,7 @@ const Page = () => {
                 </div>
                 <div className="flex flex-col items-center h-full">
                   <h2 className="font-semibold text-2xl px-2">
-                    {data.data[0] || "User"}
+                    {data.name || "User X"}
                   </h2>
                   <h2 className="font-semibold text-sm px-2 font-mono tracking-wider">
                     {shortenAddress(data.address)}
@@ -75,7 +78,7 @@ const Page = () => {
               </div>
               <div className="h-[0.5px] w-[100%] flex items-center border"></div>
             </div>
-            <span className="text-sm py-2">{data.data[1]}</span>
+            <span className="text-sm py-2">{data.delivery_address}</span>
             <div
               className={`flex justify-center w-full pt-4 ${
                 visible === "hidden" ? "block" : "hidden"
@@ -155,28 +158,36 @@ const Page = () => {
                   <div className="h-[0.5px] w-full bg-zinc-300"></div>
                   <div className="p-5 min-h-auto">
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      {data.data[2].length == 0 ? (
+                      {data.listedProducts.length == 0 ? (
                         <Card>
                           <CardHeader>
                             <CardTitle>No Products Found</CardTitle>
                           </CardHeader>
                         </Card>
                       ) : (
-                        <Card>
-                          <CardHeader>
-                            <CardTitle>Skybag</CardTitle>
-                            <CardDescription>Skybag</CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <Link
-                              href="/product/1"
-                              className="text-primary"
-                              prefetch={false}
-                            >
-                              <Button variant="outline">View Product</Button>
-                            </Link>
-                          </CardContent>
-                        </Card>
+                        data.listedProducts.map((e) => {
+                          return (
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>{e.name}</CardTitle>
+                                <CardDescription>
+                                  {e.description}
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent>
+                                <Link
+                                  href={`/product/${e.id}`}
+                                  className="text-primary"
+                                  prefetch={false}
+                                >
+                                  <Button variant="outline">
+                                    View Product
+                                  </Button>
+                                </Link>
+                              </CardContent>
+                            </Card>
+                          );
+                        })
                       )}
                     </div>
                   </div>
@@ -189,28 +200,36 @@ const Page = () => {
                   <div className="h-[0.5px] w-full bg-zinc-300"></div>
                   <div className="p-5 min-h-auto">
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                      {data.data[3].length == 0 ? (
+                      {data.purchasedProducts.length == 0 ? (
                         <Card>
                           <CardHeader>
                             <CardTitle>No Products Found</CardTitle>
                           </CardHeader>
                         </Card>
                       ) : (
-                        <Card>
-                          <CardHeader>
-                            <CardTitle>Skybag</CardTitle>
-                            <CardDescription>Skybag</CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <Link
-                              href="/product/1"
-                              className="text-primary"
-                              prefetch={false}
-                            >
-                              <Button variant="outline">View Product</Button>
-                            </Link>
-                          </CardContent>
-                        </Card>
+                        data.purchasedProducts.map((e) => {
+                          return (
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>{e.name}</CardTitle>
+                                <CardDescription>
+                                  {e.description}
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent>
+                                <Link
+                                  href={`/product/${e.id}`}
+                                  className="text-primary"
+                                  prefetch={false}
+                                >
+                                  <Button variant="outline">
+                                    View Product
+                                  </Button>
+                                </Link>
+                              </CardContent>
+                            </Card>
+                          );
+                        })
                       )}
                     </div>
                   </div>

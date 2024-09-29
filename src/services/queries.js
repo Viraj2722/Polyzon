@@ -11,7 +11,7 @@ function bigIntToWei(weiValue) {
   return gweiValue;
 }
 
-export function useGetAllProductsQuery(ids) {
+export function useGetAllProductsQuery() {
   return useQuery({
     queryKey: ["getAllProducts"],
     queryFn: async () => {
@@ -36,11 +36,7 @@ export function useGetAllProductsQuery(ids) {
           };
         });
 
-        if (Array.isArray(ids)) {
-          allProducts.filter((e) => ids.includes(e.id));
-        } else {
-          return allProducts;
-        }
+        return allProducts;
       } else {
         alert("install metamask");
       }
@@ -63,7 +59,38 @@ export function useGetUserProfileQuery() {
         );
         const signer = await provider.getSigner();
         const data = await contract.connect(signer).getUserProfile();
-        return { data, address: signer.address };
+
+        const listedProductsIds = data[2].map((e) => Number(e));
+        const purchasedProductsIds = data[3].map((e) => Number(e));
+
+        const allProducts = (await contract.getAllProducts()).map((e) => {
+          return {
+            id: Number(e[0]),
+            name: e[1],
+            price: bigIntToWei(e[2]),
+            description: e[3],
+            category: Number(e[4]),
+            seller: e[5],
+            stock: Number(e[6]),
+            image: e[7],
+          };
+        });
+
+        const listedProducts = allProducts.filter((e) =>
+          listedProductsIds.includes(e.id)
+        );
+
+        const purchasedProducts = allProducts.filter((e) =>
+          purchasedProductsIds.includes(e.id)
+        );
+
+        return {
+          name: data[0],
+          delivery_address: data[1],
+          listedProducts,
+          purchasedProducts,
+          address: signer.address,
+        };
       } else {
         alert("install metamask");
       }
@@ -93,7 +120,7 @@ export function useGetProductQuery({ id }) {
   });
 }
 
-export function useGetProductReviewQuery({ id }) {
+export function useGetProductReviewsQuery({ id }) {
   return useQuery({
     queryKey: ["getProductReviews"],
     queryFn: async () => {
