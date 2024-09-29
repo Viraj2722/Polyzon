@@ -80,6 +80,10 @@ export function useGetUserProfileQuery() {
           listedProductsIds.includes(e.id)
         );
 
+        const orderedItems = (
+          await contract.connect(signer).getUserOrders()
+        ).map((e) => e);
+
         const purchasedProducts = allProducts.filter((e) =>
           purchasedProductsIds.includes(e.id)
         );
@@ -89,6 +93,7 @@ export function useGetUserProfileQuery() {
           delivery_address: data[1],
           listedProducts,
           purchasedProducts,
+          orderedItems,
           address: signer.address,
         };
       } else {

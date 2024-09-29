@@ -1,5 +1,6 @@
 "use client";
 
+import RelativeTime from "@yaireo/relative-time";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
@@ -15,15 +16,15 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { MapPinHouse, UserRound } from "lucide-react";
-import {
-  useGetAllProductsQuery,
-  useGetUserProfileQuery,
-} from "../../services/queries";
+import { useGetUserProfileQuery } from "../../services/queries";
 import { useCreateOrEditUserProfileMutation } from "../../services/mutations";
 import { useQueryClient } from "@tanstack/react-query";
+import { Badge } from "../../components/ui/badge";
 
 const Page = () => {
   const [user, setUser] = useState({ name: "", address: "" });
+
+  const relativeTime = new RelativeTime();
 
   const handleChange = (e) => {
     setUser({
@@ -35,6 +36,13 @@ const Page = () => {
   function shortenAddress(address) {
     return address.slice(0, 4) + "..." + address.slice(-5);
   }
+
+  const DELIVERY_STATUS = [
+    "Shipped",
+    "Out For Delivery",
+    "Delivered",
+    "Cancelled",
+  ];
 
   const [visible, setVisible] = useState("hidden");
 
@@ -207,25 +215,45 @@ const Page = () => {
                           </CardHeader>
                         </Card>
                       ) : (
-                        data.purchasedProducts.map((e) => {
+                        data.purchasedProducts.map((e, i) => {
                           return (
                             <Card>
                               <CardHeader>
-                                <CardTitle>{e.name}</CardTitle>
+                                <CardTitle>
+                                  {e.name}
+                                  {` (${Number(data.orderedItems[i][3])})`}
+                                  <Badge className="ml-2">
+                                    {
+                                      DELIVERY_STATUS[
+                                        Number(data.orderedItems[i][2])
+                                      ]
+                                    }
+                                  </Badge>
+                                </CardTitle>
                                 <CardDescription>
                                   {e.description}
                                 </CardDescription>
                               </CardHeader>
                               <CardContent>
-                                <Link
-                                  href={`/product/${e.id}`}
-                                  className="text-primary"
-                                  prefetch={false}
-                                >
-                                  <Button variant="outline">
-                                    View Product
-                                  </Button>
-                                </Link>
+                                <div className="flex w-full items-center justify-between">
+                                  <Link
+                                    href={`/product/${e.id}`}
+                                    className="text-primary"
+                                    prefetch={false}
+                                  >
+                                    <Button variant="outline">
+                                      View Product
+                                    </Button>
+                                  </Link>
+                                  <span className="text-sm font-semibold">
+                                    Ordered{" "}
+                                    {relativeTime.from(
+                                      new Date(
+                                        Number(data.orderedItems[i][4]) * 1000
+                                      )
+                                    )}
+                                  </span>
+                                </div>
                               </CardContent>
                             </Card>
                           );
