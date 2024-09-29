@@ -123,7 +123,7 @@ const ChatBot = () => {
         </SheetTrigger>
         <SheetContent
           side="bottom"
-          className="h-[80vh] sm:h-[80vh] sm:max-w-[500px] sm:right-0 sm:left-auto fixed"
+          className="h-[600px] w-[400px] sm:right-0 sm:left-auto fixed"
         >
           <SheetHeader>
             <SheetTitle>Chat Bot</SheetTitle>
@@ -166,11 +166,11 @@ const ChatBot = () => {
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   onKeyDown={handleKeyPress}
-                  className="flex-1 p-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="flex-1 p-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-slate-900 h-10"
                 />
                 <button
                   onClick={handleSendMessage}
-                  className="p-2 bg-slate-900 text-white rounded-r-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="p-2 bg-slate-900 text-white rounded-r-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 h-10 w-10 flex items-center justify-center"
                 >
                   <Send size={20} />
                 </button>
