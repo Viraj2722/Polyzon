@@ -11,6 +11,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command"
 import { Button } from "./ui/button";
 import { Package2Icon, SearchIcon } from "lucide-react";
 import AddProduct from "./AddProduct";
@@ -25,11 +37,30 @@ export default function Header() {
         </Link>
         <div className="relative flex-1 max-w-md">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search products..."
-            className="w-full bg-muted/10 pl-9 pr-6 rounded-full focus:bg-background focus:ring-1 focus:ring-primary text-sm sm:text-base"
-          />
+          
+          <Dialog asChild>
+            <DialogTrigger>
+              <Input
+                type="search"
+                placeholder="Search products..."
+                className="w-full bg-muted/10 pl-9 pr-6 rounded-full focus:bg-background focus:ring-1 focus:ring-primary text-sm sm:text-base"
+              />
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Search any product</DialogTitle>
+                <DialogDescription>
+                  <Command>
+                    <CommandInput placeholder="Type anything to search..." />
+                    <CommandList>
+                      <CommandEmpty>No results found.</CommandEmpty>
+                      <CommandSeparator />
+                    </CommandList>
+                  </Command>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="flex items-center gap-2">
           <Dialog>
