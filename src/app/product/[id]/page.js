@@ -32,15 +32,19 @@ import {
   useGetProductQuery,
   useGetProductReviewsQuery,
 } from "@/services/queries";
+import { useGetAllProductsQuery } from "../../../services/queries";
 
 export default function HomeScreen({ params: { id } }) {
+
   const [review, setReview] = useState("");
   const [count, setCount] = useState(0);
 
   const { isSuccess, data } = useGetProductQuery({ id });
+  const { data: alldata, isSuccess: isSuccessfull } = useGetAllProductsQuery();
   const reviewQuery = useGetProductReviewsQuery({ id });
 
-  console.log(data);
+  console.log(alldata)
+
 
   function bigIntToWei(weiValue) {
     const weiString = weiValue.toString();
@@ -73,7 +77,7 @@ export default function HomeScreen({ params: { id } }) {
     mutation.mutateAsync(
       { id, review },
       {
-        onSuccess: () => {},
+        onSuccess: () => { },
       }
     );
   }
@@ -84,10 +88,25 @@ export default function HomeScreen({ params: { id } }) {
         { id, quantity: 1, price: data[2] },
         {
           onSuccess: () => {
-            console.log("buyed");
+            console.log("purchased!!");
           },
         }
       );
+
+      if (isSuccessfull) {
+        const groupedProducts = alldata.reduce((acc, product) => {
+          if (!acc[product.category]) {
+            acc[product.category] = [];
+          }
+          acc[product.category].push(product);
+          return acc;
+        }, {});
+
+        const categoryArrays = Object.values(groupedProducts);
+
+        console.log(categoryArrays);
+      }
+
     }
 
     return (
@@ -172,7 +191,7 @@ export default function HomeScreen({ params: { id } }) {
         </div>
 
         <div className="pt-32">
-          <CarouselSlide category="Similar Products" />
+          <CarouselSlide category="Similar Products" data={data} />
         </div>
 
         <div className="w-full pt-32">

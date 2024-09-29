@@ -5,7 +5,6 @@ import Carousel from "@/components/CarouselSlide";
 import Category from "@/components/Category";
 import { useGetAllProductsQuery } from "../services/queries";
 import Footer from "@/components/Footer";
-import ChatBot from "@/components/ChatBot";
 
 const CATEGORIES = [
   {
@@ -38,10 +37,6 @@ const CATEGORIES = [
 export default function Home() {
   const { data, isSuccess } = useGetAllProductsQuery();
 
-  if (isSuccess) {
-    console.log(data);
-  }
-
   const handleScrollToCategory = (categoryName) => {
     const element = document.getElementById(categoryName);
     if (element) {
@@ -56,21 +51,36 @@ export default function Home() {
     }
   };
 
-  return (
-    <>
-      <Header />
-      <Category
-        categories={CATEGORIES}
-        onCategoryClick={handleScrollToCategory}
-      />
+  if (isSuccess) {
+    // console.log(data);
+    const groupedProducts = data.reduce((acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = [];
+      }
+      acc[product.category].push(product);
+      return acc;
+    }, {});
+  
+    const categoryArrays = Object.values(groupedProducts);
+  
+    console.log(categoryArrays[1]);
 
-      {CATEGORIES.map(({ name }) => (
-        <div id={name} key={name} className="py-10">
-          <Carousel category={name} />
-        </div>
-      ))}
+    return (
+      <>
+        <Header />
+        <Category
+          categories={CATEGORIES}
+          onCategoryClick={handleScrollToCategory}
+        />
 
-      <Footer />
-    </>
-  );
+        {CATEGORIES.map(({ name }, index) => (
+          <div id={name} key={name} className="py-10">
+            <Carousel category={name} data={categoryArrays[index]} />
+          </div>  
+        ))}
+        <Footer />
+      </>
+    );
+  }
+
 }

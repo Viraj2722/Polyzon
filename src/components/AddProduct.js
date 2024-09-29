@@ -87,7 +87,7 @@ export default function AddProduct() {
   async function submitProduct() {
     mutation.mutateAsync(product, {
       onSuccess: () => {
-        // show modal
+        //show sonner
       },
     });
   }

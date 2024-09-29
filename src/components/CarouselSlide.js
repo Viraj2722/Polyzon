@@ -16,8 +16,10 @@ import {
 
 import React from "react";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
-function CarouselSlide({ category}) {
+function CarouselSlide({ category, data }) {
+  console.log(data)
   return (
     <>
       <h1 className="text-3xl text-center font-black py-6">{category}</h1>
@@ -32,25 +34,27 @@ function CarouselSlide({ category}) {
           className="w-full max-w-6xl"
         >
           <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {data.map((_, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
                   <Card className="w-[350px] hover:bg-zinc-100">
                     <CardHeader>
                       <CardTitle className="text-2xl font-black font-serif">
-                        Product Name
+                        {data[index].name}
                       </CardTitle>
-                      <CardDescription>Short Description</CardDescription>
+                      <CardDescription>Click to know more</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <img
-                        src={`https://picsum.photos/700/${600 + index}`}
-                        className="rounded-lg drop-shadow-md"
+                        src={data[index].image}
+                        className="rounded-lg drop-shadow-md w-[300px] h-[300px]"
                       />
                     </CardContent>
                     <CardFooter className="flex justify-between">
                       <h1 className="text-lg font-bold">0.1 Ξ</h1>
-                      <Button>Buy Now</Button>
+                      <Link href={`/product/${index}`}>
+                        <Button>Buy Now</Button>
+                      </Link>
                     </CardFooter>
                   </Card>
                 </div>
