@@ -5,7 +5,7 @@ import Carousel from "@/components/CarouselSlide";
 import Category from "@/components/Category";
 import { useGetAllProductsQuery } from "../services/queries";
 import Footer from "@/components/Footer";
-import ChatBot from "@/components/ChatBot"
+import ChatBot from "@/components/ChatBot";
 
 const CATEGORIES = [
   {
@@ -39,7 +39,7 @@ export default function Home() {
   const { data, isSuccess } = useGetAllProductsQuery();
 
   if (isSuccess) {
-    console.log(data.map((e) => e));
+    console.log(data);
   }
 
   const handleScrollToCategory = (categoryName) => {
@@ -59,7 +59,10 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Category categories={CATEGORIES} onCategoryClick={handleScrollToCategory} />
+      <Category
+        categories={CATEGORIES}
+        onCategoryClick={handleScrollToCategory}
+      />
 
       {CATEGORIES.map(({ name }) => (
         <div id={name} key={name} className="py-10">

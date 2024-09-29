@@ -2,7 +2,16 @@ import { ethers } from "ethers";
 import { useQuery } from "@tanstack/react-query";
 import Esurf from "../../Esurf.json";
 
-export function useGetAllProductsQuery() {
+function bigIntToWei(weiValue) {
+  const weiString = weiValue.toString();
+  const paddedWeiString = weiString.padStart(10, "0");
+  const gweiPart = paddedWeiString.slice(0, -18);
+  const fractionalPart = paddedWeiString.slice(-18);
+  const gweiValue = parseFloat(gweiPart + "." + fractionalPart);
+  return gweiValue;
+}
+
+export function useGetAllProductsQuery(ids) {
   return useQuery({
     queryKey: ["getAllProducts"],
     queryFn: async () => {
@@ -13,7 +22,25 @@ export function useGetAllProductsQuery() {
           Esurf.abi,
           provider
         );
-        return await contract.getAllProducts();
+
+        const allProducts = (await contract.getAllProducts()).map((e) => {
+          return {
+            id: Number(e[0]),
+            name: e[1],
+            price: bigIntToWei(e[2]),
+            description: e[3],
+            category: Number(e[4]),
+            seller: e[5],
+            stock: Number(e[6]),
+            image: e[7],
+          };
+        });
+
+        if (Array.isArray(ids)) {
+          allProducts.filter((e) => ids.includes(e.id));
+        } else {
+          return allProducts;
+        }
       } else {
         alert("install metamask");
       }
