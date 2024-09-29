@@ -45,7 +45,7 @@ export default function Home() {
   const handleScrollToCategory = (categoryName) => {
     const element = document.getElementById(categoryName);
     if (element) {
-      const offset = -50;
+      const offset = -110;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset + offset;
 
@@ -66,7 +66,7 @@ export default function Home() {
           <Carousel category={name} />
         </div>
       ))}
-      
+
       <Footer />
     </>
   );
