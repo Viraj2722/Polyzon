@@ -9,7 +9,7 @@ export function useGetAllProductsQuery() {
       if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(
-          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
           Esurf.abi,
           provider
         );
@@ -30,7 +30,7 @@ export function useGetUserProfileQuery() {
       if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const contract = new ethers.Contract(
-          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
           Esurf.abi,
           provider
         );
@@ -45,6 +45,26 @@ export function useGetUserProfileQuery() {
   });
 }
 
+export function useGetProductQuery({ id }) {
+  return useQuery({
+    queryKey: ["getProduct"],
+    queryFn: async () => {
+      if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const contract = new ethers.Contract(
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
+          Esurf.abi,
+          provider
+        );
+        return await contract.getProduct(id);
+      } else {
+        alert("install metamask");
+      }
+    },
+    refetchOnWindowFocus: "always",
+    retry: false,
+  });
+}
 // export function useLoginQuery() {
 //   return useQuery({
 //     queryKey: ["loginQuery"],

@@ -11,7 +11,7 @@ export function useCreateOrEditUserProfileMutation() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(
-          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
           Esurf.abi,
           signer
         );
@@ -46,7 +46,7 @@ export function useAddProductMutation() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(
-          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
           Esurf.abi,
           signer
         );
@@ -74,7 +74,7 @@ export function useAddReviewMutation() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(
-          "0x3f7d3254902b3C1Cfc8fdb28F5E8bb30a69DD2BD",
+          "0x902e06232fa95B2AAE963E3E335576d750Acffea",
           Esurf.abi,
           signer
         );
