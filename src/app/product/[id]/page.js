@@ -23,7 +23,10 @@ import CarouselSlide from "@/components/CarouselSlide";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useAddReviewMutation } from "@/services/mutations";
+import {
+  useAddReviewMutation,
+  useBuyProductMutation,
+} from "@/services/mutations";
 import { useGetProductQuery } from "@/services/queries";
 
 export default function HomeScreen({ params: { id } }) {
@@ -53,7 +56,29 @@ export default function HomeScreen({ params: { id } }) {
     );
   }
 
-  if (isSuccess)
+  const buyMutation = useBuyProductMutation();
+
+  async function addReview() {
+    mutation.mutateAsync(
+      { id, review },
+      {
+        onSuccess: () => {},
+      }
+    );
+  }
+
+  if (isSuccess) {
+    async function buyProduct() {
+      buyMutation.mutateAsync(
+        { id, quantity: 1, price: data[2] },
+        {
+          onSuccess: () => {
+            console.log("buyed");
+          },
+        }
+      );
+    }
+
     return (
       <>
         <Header />
@@ -80,7 +105,7 @@ export default function HomeScreen({ params: { id } }) {
                 <h3>{data[3]}</h3>
               </CardContent>
               <CardFooter className="flex ">
-                <Button>Buy With Polygon</Button>
+                <Button onClick={buyProduct}>Buy With Polygon</Button>
               </CardFooter>
             </Card>
           </div>
@@ -144,4 +169,5 @@ export default function HomeScreen({ params: { id } }) {
         <Footer />
       </>
     );
+  }
 }
