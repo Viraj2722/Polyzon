@@ -53,7 +53,7 @@ export default function Header({ data }) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Search any product</DialogTitle>
+                <DialogTitle className="text-2xl">Search any product</DialogTitle>
                 <DialogDescription>
                   <Command>
                     <CommandInput placeholder="Type anything to search..." />

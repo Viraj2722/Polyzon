@@ -126,7 +126,7 @@ const ChatBot = () => {
           className="h-[600px] w-[400px] sm:right-0 sm:left-auto fixed"
         >
           <SheetHeader>
-            <SheetTitle>Chat Bot</SheetTitle>
+            <SheetTitle>Polybot</SheetTitle>
           </SheetHeader>
           <div className="flex flex-col h-full">
             <div className="flex-1 overflow-y-auto p-4">
@@ -168,12 +168,12 @@ const ChatBot = () => {
                   onKeyDown={handleKeyPress}
                   className="flex-1 p-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-slate-900 h-10"
                 />
-                <button
+                <Button
                   onClick={handleSendMessage}
-                  className="p-2 bg-slate-900 text-white rounded-r-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 h-10 w-10 flex items-center justify-center"
+                  className="p-2 mx-2 bg-slate-900 text-white rounded-r-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 h-10 w-10 flex items-center justify-center"
                 >
                   <Send size={20} />
-                </button>
+                </Button>
               </div>
             </div>
           </div>

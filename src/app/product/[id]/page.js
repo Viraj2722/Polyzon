@@ -94,7 +94,7 @@ export default function HomeScreen({ params: { id } }) {
   if (isSuccess && isSuccessfull) {
     async function buyProduct() {
       buyMutation.mutateAsync(
-        { id, quantity: 1, price: data[2] },
+        { id, quantity: count, price: data[2] },
         {
           onSuccess: () => {
             toast("Product Purchased", {
@@ -183,10 +183,11 @@ export default function HomeScreen({ params: { id } }) {
                   <Button
                     variant="outline"
                     className="text-xl"
-                    onClick={() =>
+                    onClick={() => {
                       setCount((prevCount) =>
                         Math.min(prevCount + 1, Number(data[6]))
                       )
+                    }
                     }
                   >
                     +
