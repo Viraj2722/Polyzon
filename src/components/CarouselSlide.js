@@ -35,7 +35,7 @@ function CarouselSlide({ category}) {
             {Array.from({ length: 5 }).map((_, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
-                  <Card className="w-[350px]">
+                  <Card className="w-[350px] hover:bg-zinc-100">
                     <CardHeader>
                       <CardTitle className="text-2xl font-black font-serif">
                         Product Name

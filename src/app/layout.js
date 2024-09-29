@@ -4,6 +4,8 @@ import "./globals.css";
 import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar } from "next-nprogress-bar";
+import ChatBot from "@/components/ChatBot"
+
 
 // export const metadata = {
 //   title: "Create Next App",
@@ -33,6 +35,7 @@ export default function RootLayout({ children }) {
         <QueryClientProvider client={queryClient}>
           <AppProgressBar color="#000" options={{ showSpinner: false }} />
           {children}
+          <ChatBot/>
         </QueryClientProvider>
       </body>
     </html>

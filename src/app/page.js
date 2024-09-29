@@ -5,6 +5,7 @@ import Carousel from "@/components/CarouselSlide";
 import Category from "@/components/Category";
 import { useGetAllProductsQuery } from "../services/queries";
 import Footer from "@/components/Footer";
+import ChatBot from "@/components/ChatBot"
 
 const CATEGORIES = [
   {
@@ -44,7 +45,7 @@ export default function Home() {
   const handleScrollToCategory = (categoryName) => {
     const element = document.getElementById(categoryName);
     if (element) {
-      const offset = -50; 
+      const offset = -50;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset + offset;
 
@@ -61,11 +62,11 @@ export default function Home() {
       <Category categories={CATEGORIES} onCategoryClick={handleScrollToCategory} />
 
       {CATEGORIES.map(({ name }) => (
-        <div id={name} key={name} className="py-10"> 
+        <div id={name} key={name} className="py-10">
           <Carousel category={name} />
         </div>
       ))}
-
+      
       <Footer />
     </>
   );
