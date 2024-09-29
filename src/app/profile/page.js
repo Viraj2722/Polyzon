@@ -164,20 +164,16 @@ const Page = () => {
                       ) : (
                         <Card>
                           <CardHeader>
-                            <CardTitle>Santoor Soap</CardTitle>
-                            <CardDescription>
-                              Santoor Skin Moisturizing Sandal & Turmeric
-                              Bathing Soap with Nourishing & Anti-Aging
-                              Properties
-                            </CardDescription>
+                            <CardTitle>Skybag</CardTitle>
+                            <CardDescription>Skybag</CardDescription>
                           </CardHeader>
                           <CardContent>
                             <Link
-                              href="#"
+                              href="/product/1"
                               className="text-primary"
                               prefetch={false}
                             >
-                              View Project
+                              <Button variant="outline">View Product</Button>
                             </Link>
                           </CardContent>
                         </Card>
@@ -202,20 +198,16 @@ const Page = () => {
                       ) : (
                         <Card>
                           <CardHeader>
-                            <CardTitle>Santoor Soap</CardTitle>
-                            <CardDescription>
-                              Santoor Skin Moisturizing Sandal & Turmeric
-                              Bathing Soap with Nourishing & Anti-Aging
-                              Properties
-                            </CardDescription>
+                            <CardTitle>Skybag</CardTitle>
+                            <CardDescription>Skybag</CardDescription>
                           </CardHeader>
                           <CardContent>
                             <Link
-                              href="#"
+                              href="/product/1"
                               className="text-primary"
                               prefetch={false}
                             >
-                              View Project
+                              <Button variant="outline">View Product</Button>
                             </Link>
                           </CardContent>
                         </Card>
